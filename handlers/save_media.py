@@ -66,8 +66,8 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         short_url = await get_short_link(user, main_url)
 
         await editable.edit(
-            f"**Your Files Uploaded Successfully \n\n Your File Link : {main_url}\n\n<code>{short_url}</code>\n\n"
-            f"Just Click the link And Click Start get your files!",
+            f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : {main_url}\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 :{short_url}\n\n**"
+            f"**ᴊᴜꜱᴛ ᴄʟɪᴄᴋ ᴛʜᴇ ʟɪɴᴋ ᴀɴᴅ ᴄʟɪᴄᴋ ꜱᴛᴀʀᴛ ɢᴇᴛ ʏᴏᴜʀ ꜰɪʟᴇꜱ!**",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("Open Link", url=main_url)]]
              ),
@@ -77,7 +77,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
             chat_id=int(Config.LOG_CHANNEL),
             text=f"#BATCH_SAVE:\n\n[{editable.reply_to_message.from_user.first_name}](tg://user?id={editable.reply_to_message.from_user.id}) Got Batch Link!",
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Open Link", url=main_url)]])
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]])
         )
     except Exception as err:
         await editable.edit(f"Something Went Wrong!\n\n**Error:** `{err}`")
@@ -116,7 +116,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         await editable.edit(
             "\n**Your File Uploaded Successfully **\n\n"
-            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : {f_size} \n\nYour File Link \n{main_url}\n\n{short_url}\n\n**"
+            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : {f_size} \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : {main_url}\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : {short_url}\n\n**"
             "**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
