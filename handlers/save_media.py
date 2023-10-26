@@ -62,14 +62,14 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         )
         user_id = cmd.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://t.me/{Config.BOT_USERNAME}?start=Jokersbots_{str_to_b64(str(SaveMessage.id))}"
+        main_url = f"https://t.me/{Config.BOT_USERNAME}?start=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
         short_url = await get_short_link(user, main_url)
 
         await editable.edit(
             f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : {main_url}\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 :{short_url}\n\n**"
             f"**ᴊᴜꜱᴛ ᴄʟɪᴄᴋ ᴛʜᴇ ʟɪɴᴋ ᴀɴᴅ ᴄʟɪᴄᴋ ꜱᴛᴀʀᴛ ɢᴇᴛ ʏᴏᴜʀ ꜰɪʟᴇꜱ!**",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Open Link", url=main_url)]]
+                [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
              ),
             disable_web_page_preview=True
         )
