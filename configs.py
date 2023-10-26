@@ -44,13 +44,15 @@ class Config(object):
 ⚠️ 𝙉𝙤𝙩𝙚: 𝙎𝙚𝙣𝙙𝙞𝙣𝙜 𝙥𝙤𝙧𝙣𝙤𝙜𝙧𝙖𝙥𝙝𝙞𝙘/𝙞𝙡𝙡𝙚𝙜𝙖𝙡 𝙘𝙤𝙣𝙩𝙚𝙣𝙩𝙨 𝙩𝙤 𝙗𝙤𝙩 𝙢𝙖𝙮 𝙡𝙚𝙖𝙙𝙨 𝙩𝙤 𝙥𝙚𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝙗𝙖𝙣 𝙖𝙣𝙙 𝙛𝙞𝙡𝙚 𝙡𝙞𝙣𝙠 𝙬𝙞𝙡𝙡 𝙗𝙚 𝙧𝙚𝙫𝙤𝙠𝙚𝙙.
 """
 	SHORTENER_API_MESSAGE = """
-To add or update your Shortner Website &amp; Apikey, <code>/shortener base_site apikey</code>
+<b>ᴛᴏ ᴀᴅᴅ ᴏʀ ᴜᴘᴅᴀᴛᴇ ʏᴏᴜʀ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ
+
+🔺 <code>/shortener base_site apikey</code>
             
-Ex: <code>/shortener kpslink.in 26ce257364bf17e38293a6f2dd0e772811abe75a</code>
+⚜️ ᴇx: <code>/shortener kpslink.in 26ce257364bf17e38293a6f2dd0e772811abe75a</code>
 
-Current Website: {base_site}
+📊 ᴄᴜʀʀᴇɴᴛ ᴡᴇʙꜱɪᴛᴇ : {base_site}
 
-Current Shortener API: <code>{shortener_api}</code>
+ᴄᴜʀʀᴇɴᴛ ꜱʜᴏʀᴛᴇɴᴇʀ ᴀᴘɪ : <code>{shortener_api}</code></b>
 
 """
 
