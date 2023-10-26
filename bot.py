@@ -110,7 +110,7 @@ async def main(bot: Client, message: Message):
         user = await get_user(message.from_user.id)
 
         if not user["shortener_api"]:
-            return await message.reply_text(f"First Connect With Your Account Using /shortener base_site yourapikey")
+            return await message.reply_text(f"ꜰɪʀꜱᴛ ᴄᴏɴɴᴇᴄᴛ ᴡɪᴛʜ ʏᴏᴜʀ ᴀᴄᴄᴏᴜɴᴛ ᴜꜱɪɴɢ /shortner base_site yourapikey")
 
         await add_user_to_database(bot, message)
 
@@ -120,7 +120,7 @@ async def main(bot: Client, message: Message):
                 return
 
         if message.from_user.id in Config.BANNED_USERS:
-            await message.reply_text("Sorry, You are banned!\n\nContact [Support Group](https://t.me/JoinOT)",
+            await message.reply_text("Sorry, You are banned!\n\nContact [Support Group](https://t.me/Crazybotz)",
                                      disable_web_page_preview=True)
             return
 
@@ -130,8 +130,8 @@ async def main(bot: Client, message: Message):
         await message.reply_text(
             text="**Choose an option To Upload Your Files**",
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("Upload To Batch", callback_data="addToBatchTrue")],
-                [InlineKeyboardButton("Upload To Single File", callback_data="addToBatchFalse")]
+                [InlineKeyboardButton("ᴜᴘʟᴏᴀᴅ ᴛᴏ ʙᴀᴛᴄʜ", callback_data="addToBatchTrue")],
+                [InlineKeyboardButton("ᴜᴘʟᴏᴀᴅ ᴛᴏ ꜱɪɴɢʟᴇ ꜰɪʟᴇ", callback_data="addToBatchFalse")]
             ]),
             quote=True,
             disable_web_page_preview=True
@@ -173,7 +173,7 @@ async def main(bot: Client, message: Message):
                 text=f"#ERROR_TRACEBACK:\nGot Error from `{str(message.chat.id)}` !!\n\n**Traceback:** `{err}`",
                 disable_web_page_preview=True
             )
-@Bot.on_message(filters.command('shortener') & filters.private)
+@Bot.on_message(filters.command('shortner') & filters.private)
 async def shortener_api_handler(bot, m: Message):
     user_id = m.from_user.id
     user = await get_user(user_id)
@@ -188,7 +188,7 @@ async def shortener_api_handler(bot, m: Message):
     shortener_api = m.command[2]
 
     await update_user_info(user_id, {"base_site": base_site, "shortener_api": shortener_api})
-    await m.reply("Your Shortener Website & Apikey was updated successfully. ")
+    await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ ᴡᴀꜱ ᴀᴅᴅᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ. ✔️**")
 
 @Bot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
 async def broadcast_handler_open(_, m: Message):
@@ -367,7 +367,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                 user = await bot.get_chat_member(channel_chat_id, cmd.message.chat.id)
                 if user.status == "kicked":
                     await cmd.message.edit(
-                        text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/JoinOT).",
+                        text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/Crazybotz).",
                         disable_web_page_preview=True
                     )
                     return
@@ -390,7 +390,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                 return
             except Exception:
                 await cmd.message.edit(
-                    text="Something went Wrong. Contact my [Support Group](https://t.me/JoinOT).",
+                    text="Something went Wrong. Contact my [Support Group](https://t.me/Crazybotz).",
                     disable_web_page_preview=True
                 )
                 return
@@ -429,8 +429,8 @@ async def button(bot: Client, cmd: CallbackQuery):
         await cmd.message.edit("Files Saved Successfully ✅\n\n"
                                "Press below button to get batch link.",
                                reply_markup=InlineKeyboardMarkup([
-                                   [InlineKeyboardButton("Get Link", callback_data="getBatchLink")],
-                                   [InlineKeyboardButton("Close", callback_data="closeMessage")]
+                                   [InlineKeyboardButton("ɢᴇᴛ ʟɪɴᴋ 🔗", callback_data="getBatchLink")],
+                                   [InlineKeyboardButton("ᴄᴀɴᴄᴇʟ ⊝", callback_data="closeMessage")]
                                ]))
 
     elif "addToBatchFalse" in cb_data:
