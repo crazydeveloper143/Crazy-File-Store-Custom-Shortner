@@ -72,14 +72,10 @@ async def start(bot: Client, cmd: Message):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("Botslist Channel", url="https://t.me/JokerBots")
+                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("About Bot", callback_data="aboutbot"),
-                InlineKeyboardButton("About Dev", callback_data="aboutdevs"),
-                InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
-                ],[
-                InlineKeyboardButton("MainChannel", url="https://t.me/TN_LINKZZ"),
-                InlineKeyboardButton("Bots Channel", url="https://t.me/Jokerbots")
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/Crazybotz"),
                 ]]
             )
           )
@@ -330,10 +326,8 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("Source Codes of Bot", url="https://telegram.me/jokerBots")
-                ],[
-                InlineKeyboardButton("Go Home", callback_data="gotohome"),
-                InlineKeyboardButton("About Dev", callback_data="aboutdevs")
+                InlineKeyboardButton("🔘 ʙᴀᴄᴋ", callback_data="gotohome"),
+                InlineKeyboardButton("ᴄʟᴏꜱᴇ 🗑️", callback_data="closeMessage")
                 ]]
             )
         )
@@ -344,10 +338,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("Source Codes of Bot", url="https://telegram.me/JokerBots")
-                ],[
-                InlineKeyboardButton("About Bot", callback_data="aboutbot"),
-                InlineKeyboardButton("Go Home", callback_data="gotohome")
+                InlineKeyboardButton("🔘 ɢᴏ ʜᴏᴍᴇ 🔘", callback_data="gotohome")
                 ]]
             )
         )
@@ -358,14 +349,10 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("BotsList Channel", url="https://t.me/JokerBots")
+                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("About Bot", callback_data="aboutbot"),
-                InlineKeyboardButton("About Dev", callback_data="aboutdevs"),
-                InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
-                ],[
-                InlineKeyboardButton("Movies Channel", url="https://t.me/TNROCKERS2021"),
-                InlineKeyboardButton("Updates Channel", url="https://t.me/TN_LINKZZ")
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/Crazybotz"),
                 ]]
             )
         )
@@ -412,14 +399,10 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("BotsList Channel", url="https://t.me/JokerBots")
+                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("About Bot", callback_data="aboutbot"),
-                InlineKeyboardButton("About Dev", callback_data="aboutdevs"),
-                InlineKeyboardButton("Close 🚪", callback_data="closeMessage")
-                ],[
-                InlineKeyboardButton("Movies Channel", url="https://t.me/TNRockersOfficial"),
-                InlineKeyboardButton("Updates Channel", url="https://t.me/TN_LINKZZ")
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/Crazybotz"),
                 ]]
             )
         )
