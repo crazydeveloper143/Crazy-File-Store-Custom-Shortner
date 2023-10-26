@@ -75,7 +75,7 @@ async def start(bot: Client, cmd: Message):
                 InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/Crazybotz"),
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
                 ]]
             )
           )
@@ -188,7 +188,7 @@ async def shortener_api_handler(bot, m: Message):
     shortener_api = m.command[2]
 
     await update_user_info(user_id, {"base_site": base_site, "shortener_api": shortener_api})
-    await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ ᴡᴀꜱ ᴀᴅᴅᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ. ✔️**")
+    await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ ᴡᴀꜱ ᴀᴅᴅᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ. ✅**")
 
 @Bot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
 async def broadcast_handler_open(_, m: Message):
@@ -352,7 +352,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                 InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/Crazybotz"),
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl")
                 ]]
             )
         )
