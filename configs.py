@@ -8,9 +8,9 @@ class Config(object):
 	API_HASH = os.environ.get("API_HASH")
 	BOT_TOKEN = os.environ.get("BOT_TOKEN")
 	BOT_USERNAME = os.environ.get("BOT_USERNAME")
-	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-100"))
+	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001825377265"))
 	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "").split()]
-	DATABASE_URL = os.environ.get("DATABASE_URL")
+	DATABASE_URL = os.environ.get('DATABASE_URI', "mongodb+srv://filestortebot:filestortebot@cluster0.tdmgwvj.mongodb.net/?retryWrites=true&w=majority")
 	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "")
 	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", None)
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
