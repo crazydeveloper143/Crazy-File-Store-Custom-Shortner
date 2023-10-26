@@ -1,4 +1,4 @@
-# (c) @AbirHasan2005
+
 
 import asyncio
 from configs import Config
@@ -103,7 +103,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         user_id = message.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://telegram.me/{Config.BOT_USERNAME}?start=Jokersbots_{str_to_b64(file_er_id)}"
+        main_url = f"https://telegram.me/{Config.BOT_USERNAME}?start=Crazybotz_{str_to_b64(file_er_id)}"
         short_url = await get_short_link(user, main_url)
         # get media type
         media_type = message.document or message.video or message.audio
@@ -115,11 +115,11 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
         caption = message.caption or ""
 
         await editable.edit(
-            "**Your File Uploaded Successfully **\n\n"
-            f"<code>{caption}</code>\n\nFile Size : {f_size} \n\nYour File Link \n{main_url}\n\n<code>{short_url}</code>\n\n"
-            "Share link and earn!",
+            "\n**Your File Uploaded Successfully **\n\n"
+            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : {f_size} \n\nYour File Link \n{main_url}\n\n{short_url}\n\n**"
+            "**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Open Link", url=main_url)]]
+                [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
              ),
             disable_web_page_preview=True
         )
