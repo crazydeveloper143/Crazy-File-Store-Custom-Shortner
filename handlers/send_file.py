@@ -8,7 +8,7 @@ from handlers.helpers import str_to_b64
 async def reply_forward(message: Message, file_id: int):
     try:
         await message.reply_text(
-            f"Files will be Deleted After 30 mins ⏰\n",
+            f"**𝙁𝙞𝙡𝙚𝙨 𝙬𝙞𝙡𝙡 𝙗𝙚 𝘿𝙚𝙡𝙚𝙩𝙚𝙙 𝘼𝙛𝙩𝙚𝙧 10 𝙢𝙞𝙣 ⏰**\n",
             disable_web_page_preview=True, quote=True)
     except FloodWait as e:
         await asyncio.sleep(e.value)
@@ -27,7 +27,7 @@ async def media_forward(bot: Client, user_id: int, file_id: int):
         return media_forward(bot, user_id, file_id)
     
 async def delete_file(file_id: int):
-    await asyncio.sleep(100)  # wait for 30 minutes
+    await asyncio.sleep(600)  # wait for 30 minutes
     # Delete the file using the file ID
     # Code to delete the file goes here
   
