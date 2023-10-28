@@ -83,7 +83,7 @@ async def media_forward(bot: Client, user_id: int, file_id: int):
 async def send_media_and_reply(bot: Client, user_id: int, file_id: int):
     sent_message = await media_forward(bot, user_id, file_id)
     await reply_forward(message=sent_message, file_id=file_id)
-    asyncio.create_task(delete_after_delay(sent_message, 1800))
+    asyncio.create_task(delete_after_delay(sent_message, 60))
 
 async def delete_after_delay(message, delay):
     await asyncio.sleep(delay)
