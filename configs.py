@@ -1,7 +1,10 @@
 # # (c) @AbirHasan2005
 
 import os
+from os import getenv, environ
 
+STREAM_URL = os.environ.get("STREAM_URL", "")
+STREAM_LOGS = environ.get('STREAM_LOGS','')
 
 class Config(object):
 	API_ID = int(os.environ.get("API_ID", "0"))
