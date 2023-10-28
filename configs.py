@@ -3,23 +3,23 @@
 import os
 from os import getenv, environ
 
-STREAM_URL = os.environ.get("STREAM_URL", "")
-STREAM_LOGS = environ.get('STREAM_LOGS','')
+STREAM_URL = os.environ.get("STREAM_URL", "https://crazybotz-shivam31635.koyeb.app/")
+STREAM_LOGS = environ.get('STREAM_LOGS','-1001890815456')
 
 class Config(object):
 	API_ID = int(os.environ.get("API_ID", "0"))
 	API_HASH = os.environ.get("API_HASH")
 	BOT_TOKEN = os.environ.get("BOT_TOKEN")
 	BOT_USERNAME = os.environ.get("BOT_USERNAME")
-	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001825377265"))
+	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001799438122"))
 	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "").split()]
 	DATABASE_URL = os.environ.get('DATABASE_URI', "mongodb+srv://filestortebot:filestortebot@cluster0.tdmgwvj.mongodb.net/?retryWrites=true&w=majority")
 	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "")
-	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", None)
+	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", -1001799438122)
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
-	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", True))
+	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", False))
 	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
-	BANNED_CHAT_IDS = list(set(int(x) for x in os.environ.get("BANNED_CHAT_IDS", "-1001362659779 -1001255795497").split()))
+	BANNED_CHAT_IDS = list(set(int(x) for x in os.environ.get("BANNED_CHAT_IDS", "").split()))
 	OTHER_USERS_CAN_SAVE_FILE = bool(os.environ.get("OTHER_USERS_CAN_SAVE_FILE", True))
 	
 	ABOUT_BOT_TEXT = f"""<b>
@@ -46,16 +46,5 @@ class Config(object):
 
 ⚠️ 𝙉𝙤𝙩𝙚: 𝙎𝙚𝙣𝙙𝙞𝙣𝙜 𝙥𝙤𝙧𝙣𝙤𝙜𝙧𝙖𝙥𝙝𝙞𝙘/𝙞𝙡𝙡𝙚𝙜𝙖𝙡 𝙘𝙤𝙣𝙩𝙚𝙣𝙩𝙨 𝙩𝙤 𝙗𝙤𝙩 𝙢𝙖𝙮 𝙡𝙚𝙖𝙙𝙨 𝙩𝙤 𝙥𝙚𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝙗𝙖𝙣 𝙖𝙣𝙙 𝙛𝙞𝙡𝙚 𝙡𝙞𝙣𝙠 𝙬𝙞𝙡𝙡 𝙗𝙚 𝙧𝙚𝙫𝙤𝙠𝙚𝙙.
 """
-	SHORTENER_API_MESSAGE = """
-<b>ᴛᴏ ᴀᴅᴅ ᴏʀ ᴜᴘᴅᴀᴛᴇ ʏᴏᴜʀ ꜱʜᴏʀᴛɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ
-
-🔺 <code>/shortener base_site apikey</code>
-            
-⚜️ ᴇx: <code>/shortener kpslink.in 26ce257364bf17e38293a6f2dd0e772811abe75a</code>
-
-📊 ᴄᴜʀʀᴇɴᴛ ᴡᴇʙꜱɪᴛᴇ : {base_site}
-
-ᴄᴜʀʀᴇɴᴛ ꜱʜᴏʀᴛᴇɴᴇʀ ᴀᴘɪ : <code>{shortener_api}</code></b>
-
-"""
+	SHORTENER_API_MESSAGE = """𝘿𝙤 𝙣𝙤𝙩 𝙪𝙨𝙚 𝙖𝙣𝙮 𝙘𝙤𝙢𝙢𝙣𝙖𝙙 𝙝𝙚𝙧𝙚"""
 
