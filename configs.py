@@ -3,8 +3,8 @@
 import os
 from os import getenv, environ
 
-STREAM_URL = os.environ.get("STREAM_URL", "")
-STREAM_LOGS = environ.get('STREAM_LOGS','')
+STREAM_URL = os.environ.get("STREAM_URL", "https://crazybotz-shivam31635.koyeb.app/")
+STREAM_LOGS = environ.get('STREAM_LOGS','-1001890815456')
 
 class Config(object):
 	API_ID = int(os.environ.get("API_ID", "29499299"))
@@ -18,7 +18,7 @@ class Config(object):
 	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", -1001799438122)
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
 	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", False))
-	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
+	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 	BANNED_CHAT_IDS = list(set(int(x) for x in os.environ.get("BANNED_CHAT_IDS", "").split()))
 	OTHER_USERS_CAN_SAVE_FILE = bool(os.environ.get("OTHER_USERS_CAN_SAVE_FILE", True))
 	
@@ -28,7 +28,7 @@ class Config(object):
 ├🔸🤖 **𝙈𝙮 𝙉𝙖𝙢𝙚:** [𝙁𝙞𝙡𝙚 𝙎𝙩𝙤𝙧𝙚 𝘽𝙤𝙩](https://t.me/{BOT_USERNAME})
 ├🔸📝 **𝙇𝙖𝙣𝙜𝙪𝙖𝙜𝙚:** [𝗣𝘆𝘁𝗵𝗼𝗻](https://www.python.org)
 ├🔹📚 **𝙇𝙞𝙗𝙧𝙖𝙧𝙮:** [𝗣𝙮𝙧𝙤𝙜𝙧𝙖𝙢](https://docs.pyrogram.org)
-├🔹📡 **𝙃𝙤𝙨𝙩𝙚𝙙 𝙊𝙣:** [𝙃𝙚𝙧𝙤𝙠𝙪](https://heroku.com)
+├🔹📡 **𝙃𝙤𝙨𝙩𝙚𝙙 𝙊𝙣:** [𝘾𝙧𝙖𝙯𝙮](https://t.me/Crazybotz)
 ├🔸👨‍💻 **𝘿𝙚𝙫𝙚𝙡𝙤𝙥𝙚𝙧:** [𝘾𝙧𝙖𝙯𝙮 𝘿𝙚𝙫𝙚𝙡𝙤𝙥𝙚𝙧](https://t.me/heartlesssn) 
 ╰──────[ 😎 ]───────────⍟</b>
 """
