@@ -46,5 +46,5 @@ class Config(object):
 
 ⚠️ 𝙉𝙤𝙩𝙚: 𝙎𝙚𝙣𝙙𝙞𝙣𝙜 𝙥𝙤𝙧𝙣𝙤𝙜𝙧𝙖𝙥𝙝𝙞𝙘/𝙞𝙡𝙡𝙚𝙜𝙖𝙡 𝙘𝙤𝙣𝙩𝙚𝙣𝙩𝙨 𝙩𝙤 𝙗𝙤𝙩 𝙢𝙖𝙮 𝙡𝙚𝙖𝙙𝙨 𝙩𝙤 𝙥𝙚𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝙗𝙖𝙣 𝙖𝙣𝙙 𝙛𝙞𝙡𝙚 𝙡𝙞𝙣𝙠 𝙬𝙞𝙡𝙡 𝙗𝙚 𝙧𝙚𝙫𝙤𝙠𝙚𝙙.
 """
-	SHORTENER_API_MESSAGE = """𝘿𝙤 𝙣𝙤𝙩 𝙪𝙨𝙚 𝙖𝙣𝙮 𝙘𝙤𝙢𝙢𝙣𝙖𝙙 𝙝𝙚𝙧𝙚"""
+	SHORTENER_API_MESSAGE = """𝙁𝙞𝙧𝙨𝙩 𝘾𝙤𝙣𝙣𝙚𝙘𝙩 𝙒𝙞𝙩𝙝 𝙔𝙤𝙪𝙧 𝙎𝙝𝙤𝙧𝙩𝙣𝙚𝙧 𝘼𝙘𝙘𝙤𝙪𝙣𝙩 🤑\n\n <b><u>ʜᴏᴡ ᴛᴏ ᴀᴅᴅ sʜᴏʀᴛɴᴇʀ 👨‍💻</u> \n\n 👉 <code>/set_shortner your_shortener_website your_shortener_api</code> \n\n <u>♻️ ᴇxᴀᴍᴘʟᴇ</u> \n\n 👉 /set_shortner omegaLinks.in 33cebb615b95e76d797862d76d0f9352acd0fcc9\n\n ⚠️ ᴛʜɪꜱ ʙᴏᴛ ᴡɪʟʟ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴄᴏɴᴠᴇʀᴛꜱ ʟɪɴᴋꜱ ᴡɪᴛʜ ʏᴏᴜʀ ᴀᴘɪ ᴀɴᴅ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜʀ ʟɪɴᴋꜱ.</b>"""
 
