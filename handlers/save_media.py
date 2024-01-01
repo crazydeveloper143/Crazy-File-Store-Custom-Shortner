@@ -66,7 +66,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         short_url = await get_short_link(user, main_url)
 
         await editable.edit(
-            f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : {main_url}\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 :{short_url}\n\n**"
+            f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : <code>{short_url}</code>\n\n**"
             f"**ᴊᴜꜱᴛ ᴄʟɪᴄᴋ ᴛʜᴇ ʟɪɴᴋ ᴀɴᴅ ᴄʟɪᴄᴋ ꜱᴛᴀʀᴛ ɢᴇᴛ ʏᴏᴜʀ ꜰɪʟᴇꜱ!**",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
@@ -116,7 +116,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         await editable.edit(
             "\n**Your File Uploaded Successfully **\n\n"
-            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : {f_size} \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : {main_url}\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : {short_url}\n\n**"
+            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : <code>{f_size}</code> \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : <code>{short_url}</code>\n\n**"
             "**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
