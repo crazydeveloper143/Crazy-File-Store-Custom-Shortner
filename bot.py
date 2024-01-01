@@ -114,7 +114,7 @@ async def main(bot: Client, message: Message):
         user = await get_user(message.from_user.id)
 
         if not user["shortener_api"]:
-            return await message.reply_text(f"𝙃𝙚𝙧𝙚 𝙄𝙨 𝙈𝙮 𝙇𝙞𝙣𝙠 [𝘾𝙝𝙖𝙣𝙣𝙚𝙡](https://t.me/+kXH5fAXv8WIyZjNl)")
+            return await message.reply_text(f"𝙁𝙞𝙧𝙨𝙩 𝘾𝙤𝙣𝙣𝙚𝙘𝙩 𝙒𝙞𝙩𝙝 𝙔𝙤𝙪𝙧 𝙎𝙝𝙤𝙧𝙩𝙣𝙚𝙧 𝘼𝙘𝙘𝙤𝙪𝙣𝙩 🤑\n\n <b><u>ʜᴏᴡ ᴛᴏ ᴀᴅᴅ sʜᴏʀᴛɴᴇʀ 👨‍💻</u> \n\n 👉 <code>/set_shortner {your_shortener_website} {your_shortener_api}</code> \n\n <u>♻️ ᴇxᴀᴍᴘʟᴇ</u> \n\n 👉 /set_shortner omegaLinks.in 33cebb615b95e76d797862d76d0f9352acd0fcc9\n\n ⚠️ ᴛʜɪꜱ ʙᴏᴛ ᴡɪʟʟ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴄᴏɴᴠᴇʀᴛꜱ ʟɪɴᴋꜱ ᴡɪᴛʜ ʏᴏᴜʀ ᴀᴘɪ ᴀɴᴅ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜʀ ʟɪɴᴋꜱ.</b>")
         await add_user_to_database(bot, message)
 
         if Config.UPDATES_CHANNEL is not None:
