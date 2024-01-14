@@ -198,7 +198,7 @@ async def get_shortener_info_handler(bot, m: Message):
     user_id = m.from_user.id
     user = await get_user(user_id)
     
-    s = f"<u>𝐒𝐡𝐨𝐫𝐭𝐞𝐧𝐞𝐫 𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧 😃</u>\n\n<b> ᴄᴜʀʀᴇɴᴛ ꜱʜᴏʀᴛᴇɴᴇʀ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ 👨‍💻 \n\n✨ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ : {user['base_site']}\n🎉 ᴀᴘɪ ᴋᴇʏ: {user['shortener_api']}"
+    s = f"<u>𝐒𝐡𝐨𝐫𝐭𝐞𝐧𝐞𝐫 𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧 😃</u>\n\n<b> ᴄᴜʀʀᴇɴᴛ ꜱʜᴏʀᴛᴇɴᴇʀ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ 👨‍💻 \n\n✨ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ : <code>{user['base_site']}</code>\n\n🎉 ᴀᴘɪ ᴋᴇʏ: <code>{user['shortener_api']}</code> </b>"
     await m.reply(s)
 
 @Bot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
