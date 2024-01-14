@@ -193,6 +193,14 @@ async def shortener_api_handler(bot, m: Message):
     await update_user_info(user_id, {"base_site": base_site, "shortener_api": shortener_api})
     await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ ᴡᴀꜱ ᴀᴅᴅᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ. ✅**")
 
+@Bot.on_message(filters.command('info') & filters.private)
+async def get_shortener_info_handler(bot, m: Message):
+    user_id = m.from_user.id
+    user = await get_user(user_id)
+    
+    s = f"Current Shortener Information:\nBase Site: {user['base_site']}\nAPI Key: {user['shortener_api']}"
+    await m.reply(s)
+
 @Bot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
 async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
