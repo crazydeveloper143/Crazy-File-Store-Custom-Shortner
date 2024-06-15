@@ -57,7 +57,7 @@ Bot = Client(
 async def _(bot: Client, cmd: Message):
     await handle_user_status(bot, cmd)
 
-@Client.on_message(filters.command("start") & filters.private)
+@Bot.on_message(filters.command("start") & filters.private)
 async def start(bot: Client, cmd: Message):
 
     if cmd.from_user.id in Config.BANNED_USERS:
@@ -105,7 +105,7 @@ async def start(bot: Client, cmd: Message):
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
-@Client.on_callback_query(filters.regex("tryagain"))
+@Bot.on_callback_query(filters.regex("tryagain"))
 async def refresh_force_sub(bot: Client, query: CallbackQuery):
     back = await handle_force_sub(bot, query.message)
     if back == 200:
