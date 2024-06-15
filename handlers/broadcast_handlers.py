@@ -1,5 +1,3 @@
-# (c) @AbirHasan2005
-
 import time
 import string
 import random
@@ -18,7 +16,6 @@ from pyrogram.errors import (
 
 broadcast_ids = {}
 
-
 async def send_msg(user_id, message):
     try:
         if Config.BROADCAST_AS_COPY is False:
@@ -28,7 +25,7 @@ async def send_msg(user_id, message):
         return 200, None
     except FloodWait as e:
         await asyncio.sleep(e.value)
-        return send_msg(user_id, message)
+        return await send_msg(user_id, message)
     except InputUserDeactivated:
         return 400, f"{user_id} : deactivated\n"
     except UserIsBlocked:
@@ -38,12 +35,11 @@ async def send_msg(user_id, message):
     except Exception as e:
         return 500, f"{user_id} : {traceback.format_exc()}\n"
 
-
 async def main_broadcast_handler(m, db):
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
     while True:
-        broadcast_id = ''.join([random.choice(string.ascii_letters) for i in range(3)])
+        broadcast_id = ''.join([random.choice(string.ascii_letters) for _ in range(3)])
         if not broadcast_ids.get(broadcast_id):
             break
     out = await m.reply_text(
@@ -62,8 +58,14 @@ async def main_broadcast_handler(m, db):
     )
     async with aiofiles.open('broadcast.txt', 'w') as broadcast_log_file:
         async for user in all_users:
+            user_id = user.get('id')
+            if user_id is None:
+                failed += 1
+                await broadcast_log_file.write(f"Missing user id for user: {user}\n")
+                continue
+
             sts, msg = await send_msg(
-                user_id=int(user['id']),
+                user_id=int(user_id),
                 message=broadcast_msg
             )
             if msg is not None:
@@ -73,7 +75,7 @@ async def main_broadcast_handler(m, db):
             else:
                 failed += 1
             if sts == 400:
-                await db.delete_user(user['id'])
+                await db.delete_user(user_id)
             done += 1
             if broadcast_ids.get(broadcast_id) is None:
                 break
@@ -92,13 +94,13 @@ async def main_broadcast_handler(m, db):
     await out.delete()
     if failed == 0:
         await m.reply_text(
-            text=f"broadcast completed in `{completed_in}`\n\nTotal users {total_users}.\nTotal done {done}, {success} success and {failed} failed.",
+            text=f"Broadcast completed in `{completed_in}`\n\nTotal users {total_users}.\nTotal done {done}, {success} success and {failed} failed.",
             quote=True
         )
     else:
         await m.reply_document(
             document='broadcast.txt',
-            caption=f"broadcast completed in `{completed_in}`\n\nTotal users {total_users}.\nTotal done {done}, {success} success and {failed} failed.",
+            caption=f"Broadcast completed in `{completed_in}`\n\nTotal users {total_users}.\nTotal done {done}, {success} success and {failed} failed.",
             quote=True
         )
     await aiofiles.os.remove('broadcast.txt')
