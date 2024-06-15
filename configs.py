@@ -9,7 +9,7 @@ STREAM_LOGS = environ.get('STREAM_LOGS','-1001890815456')
 class Config(object):
 	API_ID = int(os.environ.get("API_ID", "29499299"))
 	API_HASH = os.environ.get("API_HASH", "d2a224d0d84bf24b6b82e887a4f1559a")
-	BOT_TOKEN = os.environ.get("BOT_TOKEN", "5911870660:AAHrO0BKsyJ3u-ToZiaLmFpBCsV5j-KWSPM")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN", "5911870660:AAEr0HeSms5_4FauHPb1BjYh1krgRTTOy4Q")
 	BOT_USERNAME = os.environ.get("BOT_USERNAME", "File_Store4_Bot")
 	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001799438122"))
 	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "6249148586").split()]
