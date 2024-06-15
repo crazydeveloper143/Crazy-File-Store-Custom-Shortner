@@ -63,6 +63,10 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
+    if Config.UPDATES_CHANNEL is not None:
+        back = await handle_force_sub(bot, cmd)
+        if back == 400:
+            return
 
     usr_cmd = cmd.text.split("_", 1)[-1]
     if usr_cmd == "/start":
@@ -72,18 +76,14 @@ async def start(bot: Client, cmd: Message):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                    InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                    InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
+                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
                 ]]
             )
-        )
+          )
     else:
-        back = await handle_force_sub(bot, cmd)
-        if back == 400:
-            return
-
         try:
             try:
                 file_id = int(b64_to_str(usr_cmd).split("_")[-1])
@@ -105,34 +105,7 @@ async def start(bot: Client, cmd: Message):
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
-@Bot.on_callback_query(filters.regex("tryagain"))
-async def refresh_force_sub(bot: Client, query: CallbackQuery):
-    back = await handle_force_sub(bot, query.message)
-    if back == 200:
-        usr_cmd = query.message.reply_to_message.text.split("_", 1)[-1]
-        try:
-            try:
-                file_id = int(b64_to_str(usr_cmd).split("_")[-1])
-            except (Error, UnicodeDecodeError):
-                file_id = int(usr_cmd.split("_")[-1])
-            GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
-            message_ids = []
-            if GetMessage.text:
-                message_ids = GetMessage.text.split(" ")
-                await query.message.reply_text(
-                    text=f"**Total Files:** `{len(message_ids)}`",
-                    quote=True,
-                    disable_web_page_preview=True
-                )
-            else:
-                message_ids.append(int(GetMessage.id))
-            for i in range(len(message_ids)):
-                await send_media_and_reply(bot, user_id=query.from_user.id, file_id=int(message_ids[i]))
-        except Exception as err:
-            await query.message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
-    else:
-        await query.answer("Please join the channel first!", show_alert=True)
-            
+
 @Bot.on_message((filters.document | filters.video | filters.audio | filters.photo) & ~filters.chat(Config.DB_CHANNEL))
 async def main(bot: Client, message: Message):
 
