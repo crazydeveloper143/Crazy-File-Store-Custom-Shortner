@@ -1,3 +1,5 @@
+- 6hvskqmiye@segamail.com
+
 
 ## Configs:
 - `API_ID` - Get this from [@TeleORG_Bot](https://t.me/TeleORG_Bot)
