@@ -62,7 +62,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
         )
         user_id = cmd.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://t.me/{Config.BOT_USERNAME}?start=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
+        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
         short_url = await get_short_link(user, main_url)
 
         await editable.edit(
@@ -103,7 +103,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         user_id = message.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://telegram.me/{Config.BOT_USERNAME}?start=Crazybotz_{str_to_b64(file_er_id)}"
+        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(file_er_id)}"
         short_url = await get_short_link(user, main_url)
         # get media type
         media_type = message.document or message.video or message.audio
