@@ -63,11 +63,7 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-
-    # Extract the command part after "/start"
     usr_cmd = cmd.text.split(maxsplit=1)[1] if len(cmd.text.split()) > 1 else "/start"
-
-    # Check if the user is a member of the updates channel
     try:
         user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
     except UserNotParticipant:
@@ -75,7 +71,6 @@ async def start(bot: Client, cmd: Message):
         buttons = [
             [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
         ]
-        
         if usr_cmd != "/start":
             buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={usr_cmd}")])
 
@@ -87,7 +82,6 @@ async def start(bot: Client, cmd: Message):
     except ChatAdminRequired:
         await cmd.reply_text("Bot needs to be an admin in the channel to check membership status.")
         return
-
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
@@ -107,24 +101,21 @@ async def start(bot: Client, cmd: Message):
         )
     else:
         try:
-            # Get message or messages associated with the usr_cmd text
-            GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=int(usr_cmd))
-            
+            GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
             message_ids = []
             if GetMessage.text:
-                message_ids = GetMessage.text.split()
-                await cmd.reply_text(
-                    text=f"**Total Files:** {len(message_ids)}",
+                message_ids = GetMessage.text.split(" ")
+                _response_msg = await cmd.reply_text(
+                    text=f"**Total Files:** `{len(message_ids)}`",
                     quote=True,
                     disable_web_page_preview=True
                 )
             else:
-                message_ids.append(GetMessage.message_id)
-            for msg_id in message_ids:
-                await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=msg_id)
-        
+                message_ids.append(int(GetMessage.id))
+            for i in range(len(message_ids)):
+                await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
         except Exception as err:
-            await cmd.reply_text(f"Something went wrong!\n\n**Error:** {err}")
+            await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
 
 @Bot.on_message((filters.document | filters.video | filters.audio | filters.photo) & ~filters.chat(Config.DB_CHANNEL))
