@@ -23,10 +23,11 @@ async def get_invite_link(bot: Client, chat_id: Union[str, int]):
 async def handle_force_sub(bot: Client, cmd: Message):
     if Config.UPDATES_CHANNEL and Config.UPDATES_CHANNEL.startswith("-100"):
         channel_chat_id = int(Config.UPDATES_CHANNEL)
-    elif Config.UPDATES_CHANNEL and (not Config.UPDATES_CHANNEL.startswith("-100")):
+    elif Config.UPDATES_CHANNEL:
         channel_chat_id = Config.UPDATES_CHANNEL
     else:
         return 200
+
     try:
         user = await bot.get_chat_member(chat_id=channel_chat_id, user_id=cmd.from_user.id)
         if user.status == "kicked":
@@ -52,7 +53,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
                         InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
                     ],
                     [
-                        InlineKeyboardButton("🔄 Refresh 🔄", callback_data="tryagain")
+                        InlineKeyboardButton("🔄 Refresh 🔄", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={cmd.text}")
                     ]
                 ]
             )
