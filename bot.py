@@ -333,9 +333,11 @@ async def button(bot: Client, cmd: CallbackQuery):
     cb_data = cmd.data
     
     if cb_data.startswith("tryagain"):
-        ident, file_id = cb_data.split("#")
-        await cmd.answer(url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")
-        return
+        if "#" in cb_data:
+            ident, file_id = cb_data.split("#")
+            await cmd.answer(url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")
+        else:
+            await cmd.answer("No file ID found. Please try again.", show_alert=True)
 
     if "aboutbot" in cb_data:
         await cmd.message.edit(
