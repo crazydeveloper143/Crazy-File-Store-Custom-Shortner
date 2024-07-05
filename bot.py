@@ -59,30 +59,34 @@ async def _(bot: Client, cmd: Message):
 
 @Bot.on_message(filters.command("start") & filters.private)
 async def start(bot: Client, cmd: Message):
-
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
+    
     if Config.UPDATES_CHANNEL is not None:
         back = await handle_force_sub(bot, cmd)
         if back == 400:
             return
 
-    usr_cmd = cmd.text.split("_", 1)[-1]
+    # Extract the command part after "/start"
+    usr_cmd = cmd.text.split("_", 1)[-1].split("?start=")[-1].split("&")[0]
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
             Config.HOME_TEXT.format(cmd.from_user.first_name, cmd.from_user.id),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[
-                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
-                ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
-                ]]
+                [
+                    [
+                        InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                        InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                    ],
+                    [
+                        InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
+                    ]
+                ]
             )
-          )
+        )
     else:
         try:
             try:
@@ -94,7 +98,7 @@ async def start(bot: Client, cmd: Message):
             if GetMessage.text:
                 message_ids = GetMessage.text.split(" ")
                 _response_msg = await cmd.reply_text(
-                    text=f"**Total Files:** `{len(message_ids)}`",
+                    text=f"**Total Files:** {len(message_ids)}",
                     quote=True,
                     disable_web_page_preview=True
                 )
@@ -103,7 +107,8 @@ async def start(bot: Client, cmd: Message):
             for i in range(len(message_ids)):
                 await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
         except Exception as err:
-            await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+            # Handle the case where something went wrong
+            await cmd.reply_text(f"Something went wrong!\n\n**Error:** {err}")
 
 
 @Bot.on_message((filters.document | filters.video | filters.audio | filters.photo) & ~filters.chat(Config.DB_CHANNEL))
