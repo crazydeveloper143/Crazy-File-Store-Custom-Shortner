@@ -30,6 +30,7 @@ from configs import Config
 from handlers.database import db
 from handlers.add_user_to_db import add_user_to_database
 from handlers.send_file import send_media_and_reply, media_forward
+from pyrogram.errors import UserNotParticipant, ChatAdminRequired, FloodWait
 from handlers.helpers import b64_to_str, str_to_b64
 from handlers.check_user_status import handle_user_status
 from handlers.force_sub_handler import (
@@ -62,12 +63,10 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-
-    # Extract the command part after "/start"
     try:
         usr_cmd = cmd.text.split("_", 1)[-1].split("?start=")[-1].split("&")[0]
     except IndexError:
-        usr_cmd = "/start"  # Default to "/start" if no specific file ID is provided
+        usr_cmd = "/start"
 
     file_id = None
     if usr_cmd != "/start":
@@ -75,12 +74,25 @@ async def start(bot: Client, cmd: Message):
             file_id = int(b64_to_str(usr_cmd).split("_")[-1])
         except (Error, UnicodeDecodeError):
             file_id = int(usr_cmd.split("_")[-1])
+    try:
+        user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
+    except UserNotParticipant:
+        f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL)
+        buttons = [
+            [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
+        ]
+        
+        if usr_cmd != "/start":
+            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")])
 
-    if Config.UPDATES_CHANNEL is not None:
-        back = await handle_force_sub(bot, cmd, file_id)
-        if back == 400:
-            return
-
+        await cmd.reply(
+            f"<b> ⚠️ Dear {cmd.from_user.mention} ❗\n\n🙁 First join our channel then you will get the video, otherwise you will not get it.\n\nClick join channel button 👇</b>",
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
+        return
+    except ChatAdminRequired:
+        await cmd.reply_text("Bot needs to be an admin in the channel to check membership status.")
+        return
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
@@ -100,9 +112,7 @@ async def start(bot: Client, cmd: Message):
         )
     else:
         try:
-            # Get message or messages associated with the file_id
             GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
-            
             message_ids = []
             if GetMessage.text:
                 message_ids = GetMessage.text.split()
