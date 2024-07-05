@@ -52,6 +52,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
                 continue
             message_ids_str += f"{str(sent_message.id)} "
             await asyncio.sleep(2)
+
         SaveMessage = await bot.send_message(
             chat_id=Config.DB_CHANNEL,
             text=message_ids_str,
@@ -60,24 +61,40 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
                 InlineKeyboardButton("Delete Batch", callback_data="closeMessage")
             ]])
         )
+
         user_id = cmd.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
-        short_url = await get_short_link(user, main_url)
+        main_url = f"https://filescrazy.blogspot.com/2024/07/files.html?link=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
+        short_url = None
+
+        if user["shortener_api"]:
+            short_url = await get_short_link(user, main_url)
+
+        message_text = (
+            f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n"
+        )
+
+        buttons = [
+            [InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url)]
+        ]
+
+        if short_url:
+            message_text += f"\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣ᴇᴅ 𝙡ɪɴᴋ : <code>{short_url}</code>\n"
+            buttons.append([InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)])
+
+        message_text += "\n**ᴊᴜꜱᴛ ᴄʟɪᴄᴋ ᴛʜᴇ ʟɪɴᴋ ᴀɴᴅ ᴄʟɪᴄᴋ ꜱᴛᴀʀᴛ ɢᴇᴛ ʏᴏᴜʀ ꜰɪʟᴇꜱ!**"
 
         await editable.edit(
-            f"**\nYour Files Uploaded Successfully \n\n ⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : <code>{short_url}</code>\n\n**"
-            f"**ᴊᴜꜱᴛ ᴄʟɪᴄᴋ ᴛʜᴇ ʟɪɴᴋ ᴀɴᴅ ᴄʟɪᴄᴋ ꜱᴛᴀʀᴛ ɢᴇᴛ ʏᴏᴜʀ ꜰɪʟᴇꜱ!**",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
-             ),
+            message_text,
+            reply_markup=InlineKeyboardMarkup(buttons),
             disable_web_page_preview=True
         )
+
         await bot.send_message(
             chat_id=int(Config.LOG_CHANNEL),
             text=f"#BATCH_SAVE:\n\n[{editable.reply_to_message.from_user.first_name}](tg://user?id={editable.reply_to_message.from_user.id}) Got Batch Link!",
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]])
+            reply_markup=InlineKeyboardMarkup(buttons)
         )
     except Exception as err:
         await editable.edit(f"Something Went Wrong!\n\n**Error:** `{err}`")
@@ -103,8 +120,12 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         user_id = message.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(file_er_id)}"
-        short_url = await get_short_link(user, main_url)
+        main_url = f"https://filescrazy.blogspot.com/2024/07/files.html?link=Crazybotz_{str_to_b64(file_er_id)}"
+        short_url = None
+        
+        if user["shortener_api"]:
+            short_url = await get_short_link(user, main_url)
+        
         # get media type
         media_type = message.document or message.video or message.audio
         # get file name
@@ -114,15 +135,27 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
         # get caption (if any)
         caption = message.caption or ""
 
-        await editable.edit(
+        message_text = (
             "\n**Your File Uploaded Successfully **\n\n"
-            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : <code>{f_size}</code> \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣𝙚𝙙 𝙡𝙞𝙣𝙠 : <code>{short_url}</code>\n\n**"
-            "**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url),InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)]]
-             ),
+            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : <code>{f_size}</code> \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n"
+        )
+
+        buttons = [
+            [InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url)]
+        ]
+
+        if short_url:
+            message_text += f"\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣ᴇᴅ 𝙡ɪɴᴋ : <code>{short_url}</code>\n"
+            buttons.append([InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)])
+
+        message_text += "\n**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**"
+
+        await editable.edit(
+            message_text,
+            reply_markup=InlineKeyboardMarkup(buttons),
             disable_web_page_preview=True
         )
+
     except FloodWait as sl:
         if sl.value > 45:
             print(f"Sleep of {sl.value}s caused by FloodWait ...")
