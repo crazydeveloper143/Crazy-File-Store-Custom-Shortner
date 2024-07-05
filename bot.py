@@ -62,14 +62,25 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-    
+
+    # Extract the command part after "/start"
+    try:
+        usr_cmd = cmd.text.split("_", 1)[-1].split("?start=")[-1].split("&")[0]
+    except IndexError:
+        usr_cmd = "/start"  # Default to "/start" if no specific file ID is provided
+
+    file_id = None
+    if usr_cmd != "/start":
+        try:
+            file_id = int(b64_to_str(usr_cmd).split("_")[-1])
+        except (Error, UnicodeDecodeError):
+            file_id = int(usr_cmd.split("_")[-1])
+
     if Config.UPDATES_CHANNEL is not None:
-        back = await handle_force_sub(bot, cmd)
+        back = await handle_force_sub(bot, cmd, file_id)
         if back == 400:
             return
 
-    # Extract the command part after "/start"
-    usr_cmd = cmd.text.split("_", 1)[-1].split("?start=")[-1].split("&")[0]
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
@@ -89,25 +100,23 @@ async def start(bot: Client, cmd: Message):
         )
     else:
         try:
-            try:
-                file_id = int(b64_to_str(usr_cmd).split("_")[-1])
-            except (Error, UnicodeDecodeError):
-                file_id = int(usr_cmd.split("_")[-1])
+            # Get message or messages associated with the file_id
             GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
+            
             message_ids = []
             if GetMessage.text:
-                message_ids = GetMessage.text.split(" ")
-                _response_msg = await cmd.reply_text(
+                message_ids = GetMessage.text.split()
+                await cmd.reply_text(
                     text=f"**Total Files:** {len(message_ids)}",
                     quote=True,
                     disable_web_page_preview=True
                 )
             else:
-                message_ids.append(int(GetMessage.id))
-            for i in range(len(message_ids)):
-                await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
+                message_ids.append(GetMessage.message_id)
+            for msg_id in message_ids:
+                await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=msg_id)
+        
         except Exception as err:
-            # Handle the case where something went wrong
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** {err}")
 
 
