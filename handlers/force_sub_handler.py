@@ -20,7 +20,7 @@ async def get_invite_link(bot: Client, chat_id: Union[str, int]):
         return await get_invite_link(bot, chat_id)
 
 
-async def handle_force_sub(bot: Client, cmd: Message):
+async def handle_force_sub(bot: Client, cmd: Message, file_id: int):
     if Config.UPDATES_CHANNEL and Config.UPDATES_CHANNEL.startswith("-100"):
         channel_chat_id = int(Config.UPDATES_CHANNEL)
     elif Config.UPDATES_CHANNEL:
@@ -43,6 +43,9 @@ async def handle_force_sub(bot: Client, cmd: Message):
         except Exception as err:
             print(f"Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}")
             return 200
+        
+        refresh_url = f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}" if file_id else f"https://telegram.me/{Config.BOT_USERNAME}?start=start"
+        
         await bot.send_message(
             chat_id=cmd.from_user.id,
             text="**Please Join My Updates Channel to use this Bot!**\n\n"
@@ -53,7 +56,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
                         InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
                     ],
                     [
-                        InlineKeyboardButton("🔄 Refresh 🔄", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")
+                        InlineKeyboardButton("🔄 Refresh 🔄", url=refresh_url)
                     ]
                 ]
             )
