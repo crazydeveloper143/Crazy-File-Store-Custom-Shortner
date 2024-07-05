@@ -63,17 +63,11 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-    try:
-        usr_cmd = cmd.text.split("_", 1)[-1].split("?start=")[-1].split("&")[0]
-    except IndexError:
-        usr_cmd = "/start"
 
-    file_id = None
-    if usr_cmd != "/start":
-        try:
-            file_id = int(b64_to_str(usr_cmd).split("_")[-1])
-        except (Error, UnicodeDecodeError):
-            file_id = int(usr_cmd.split("_")[-1])
+    # Extract the command part after "/start"
+    usr_cmd = cmd.text.split(maxsplit=1)[1] if len(cmd.text.split()) > 1 else "/start"
+
+    # Check if the user is a member of the updates channel
     try:
         user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
     except UserNotParticipant:
@@ -83,7 +77,7 @@ async def start(bot: Client, cmd: Message):
         ]
         
         if usr_cmd != "/start":
-            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")])
+            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={usr_cmd}")])
 
         await cmd.reply(
             f"<b> ⚠️ Dear {cmd.from_user.mention} ❗\n\n🙁 First join our channel then you will get the video, otherwise you will not get it.\n\nClick join channel button 👇</b>",
@@ -93,6 +87,7 @@ async def start(bot: Client, cmd: Message):
     except ChatAdminRequired:
         await cmd.reply_text("Bot needs to be an admin in the channel to check membership status.")
         return
+
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
@@ -112,7 +107,9 @@ async def start(bot: Client, cmd: Message):
         )
     else:
         try:
-            GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
+            # Get message or messages associated with the usr_cmd text
+            GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=int(usr_cmd))
+            
             message_ids = []
             if GetMessage.text:
                 message_ids = GetMessage.text.split()
