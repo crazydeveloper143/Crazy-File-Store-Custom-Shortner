@@ -74,7 +74,7 @@ async def start(bot: Client, cmd: Message):
             [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
         ]
         if usr_cmd != "/start":
-            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={usr_cmd}")])
+            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start=Crazybotz_{usr_cmd}")])
 
         await cmd.reply(
             f"<b> ⚠️ Dear {cmd.from_user.mention} ❗\n\n🙁 First join our channel then you will get the video, otherwise you will not get it.\n\nClick join channel button 👇</b>",
