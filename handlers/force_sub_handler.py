@@ -53,7 +53,7 @@ async def handle_force_sub(bot: Client, cmd: Message):
                         InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
                     ],
                     [
-                        InlineKeyboardButton("🔄 Refresh 🔄", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={cmd.text}")
+                        InlineKeyboardButton("🔄 Refresh 🔄", url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")
                     ]
                 ]
             )
