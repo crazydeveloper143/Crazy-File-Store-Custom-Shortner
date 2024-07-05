@@ -331,7 +331,8 @@ async def clear_user_batch(bot: Client, m: Message):
 async def button(bot: Client, cmd: CallbackQuery):
 
     cb_data = cmd.data
-    elif cb_data.startswith("tryagain"):
+    
+    if cb_data.startswith("tryagain"):
         ident, file_id = cb_data.split("#")
         await cmd.answer(url=f"https://telegram.me/{Config.BOT_USERNAME}?start={file_id}")
         return
