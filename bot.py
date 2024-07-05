@@ -63,7 +63,8 @@ async def start(bot: Client, cmd: Message):
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-    usr_cmd = cmd.text.split(maxsplit=1)[1] if len(cmd.text.split()) > 1 else "/start"
+        
+    usr_cmd = cmd.text.split("_", 1)[-1] > 1 else "/start"
     try:
         user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
     except UserNotParticipant:
