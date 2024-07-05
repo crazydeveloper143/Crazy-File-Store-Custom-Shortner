@@ -138,11 +138,6 @@ async def main(bot: Client, message: Message):
             return await message.reply_text(f"𝙁𝙞𝙧𝙨𝙩 𝘾𝙤𝙣𝙣𝙚𝙘𝙩 𝙒𝙞𝙩𝙝 𝙔𝙤𝙪𝙧 𝙎𝙝𝙤𝙧𝙩𝙣𝙚𝙧 𝘼𝙘𝙘𝙤𝙪𝙣𝙩 🤑\n\n <b><u>ʜᴏᴡ ᴛᴏ ᴀᴅᴅ sʜᴏʀᴛɴᴇʀ 👨‍💻</u> \n\n 👉 <code>/set_shortner your_shortener_website your_shortener_api</code> \n\n <u>♻️ ᴇxᴀᴍᴘʟᴇ</u> \n\n 👉 /set_shortner omegaLinks.in 33cebb615b95e76d797862d76d0f9352acd0fcc9\n\n ⚠️ ᴛʜɪꜱ ʙᴏᴛ ᴡɪʟʟ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴄᴏɴᴠᴇʀᴛꜱ ʟɪɴᴋꜱ ᴡɪᴛʜ ʏᴏᴜʀ ᴀᴘɪ ᴀɴᴅ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ʏᴏᴜʀ ʟɪɴᴋꜱ.</b>")
         await add_user_to_database(bot, message)
 
-        if Config.UPDATES_CHANNEL is not None:
-            back = await handle_force_sub(bot, message)
-            if back == 400:
-                return
-
         if message.from_user.id in Config.BANNED_USERS:
             await message.reply_text("Sorry, You are banned!\n\nContact [Support Group](https://t.me/Crazybotz)",
                                      disable_web_page_preview=True)
