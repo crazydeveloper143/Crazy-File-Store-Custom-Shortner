@@ -219,7 +219,7 @@ async def get_shortener_info_handler(bot, m: Message):
 async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
 
-@Bot.on_message(filters.private & filters.command("status") & filters.user(Config.BOT_OWNER))
+@Bot.on_message(filters.private & filters.command("stats") & filters.user(Config.BOT_OWNER))
 async def sts(_, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(
@@ -360,7 +360,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [[
                 InlineKeyboardButton("🔘 ʙᴀᴄᴋ", callback_data="gotohome"),
-                InlineKeyboardButton("ꜱᴛᴀᴛᴜꜱ 🗑️", callback_data="stats")
+                InlineKeyboardButton("ᴄʟᴏꜱᴇ 🗑️", callback_data="closeMessage")
                 ]]
             )
         )
