@@ -12,7 +12,7 @@ class Config(object):
 	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001799438122"))
 	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "6249148586").split()]
 	DATABASE_URL = os.environ.get('DATABASE_URI', "mongodb+srv://Animestorebot:Animestorebot@cluster0.kzwrcpo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "-1001600537706")
+	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "-1002197926386")
 	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", -1001799438122)
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
 	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", False))
