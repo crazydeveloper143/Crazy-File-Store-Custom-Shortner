@@ -369,9 +369,9 @@ async def button(bot: Client, cmd: CallbackQuery):
         user_id = cmd.from_user.id
         if not int(user_id) == Config.BOT_OWNER:
             await cmd.answer("ɪ ʟɪᴋᴇ ʏᴏᴜʀ ꜱᴍᴀʀᴛɴᴇꜱꜱ..ʙᴜᴛ ᴅᴏɴ'ᴛ ʙᴇ ᴏᴠᴇʀ ꜱᴍᴀʀᴛ 🤭", show_alert=True)
-            return
-        total_users = await db.total_users_count()
-        await cmd.answer(f"ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ : {total_users}", show_alert=True)
+        else:
+            total_users = await db.total_users_count()
+            await cmd.answer(f"ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ : {total_users}", show_alert=True)
     
     elif "aboutdevs" in cb_data:
         await cmd.message.edit(
