@@ -360,11 +360,20 @@ async def button(bot: Client, cmd: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(
                 [[
                 InlineKeyboardButton("🔘 ʙᴀᴄᴋ", callback_data="gotohome"),
-                InlineKeyboardButton("ᴄʟᴏꜱᴇ 🗑️", callback_data="closeMessage")
+                InlineKeyboardButton("ꜱᴛᴀᴛᴜꜱ 🗑️", callback_data="stats")
                 ]]
             )
         )
 
+    elif "stats" in cb_data:
+        Config.BOT_OWNER
+        user_id = m.from_user.id
+        if user_id == bot_owner:
+            total_users = await db.total_users_count()
+            await cmd.answer(f"ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ : {total_users}", show_alert=True)
+        else:
+            await cmd.answer("ɪ ʟɪᴋᴇ ʏᴏᴜʀ ꜱᴍᴀʀᴛɴᴇꜱꜱ..ʙᴜᴛ ᴅᴏɴ'ᴛ ʙᴇ ᴏᴠᴇʀ ꜱᴍᴀʀᴛ 🤭", show_alert=True)
+    
     elif "aboutdevs" in cb_data:
         await cmd.message.edit(
             Config.ABOUT_DEV_TEXT,
