@@ -28,7 +28,7 @@ async def media_forward(bot: Client, user_id: int, file_id: int):
         markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl")
+                    InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+aCTqfHmlI_1lYTZl")
                 ],
             ]
         )
