@@ -59,14 +59,30 @@ async def _(bot: Client, cmd: Message):
 
 @Bot.on_message(filters.command("start") & filters.private)
 async def start(bot: Client, cmd: Message):
-
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-    if Config.UPDATES_CHANNEL is not None:
-        back = await handle_force_sub(bot, cmd)
-        if back == 400:
-            return
+
+    usr_cmd = cmd.text.split("_", 1)[-1] if "_" in cmd.text else "/start"
+
+    try:
+        user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
+    except UserNotParticipant:
+        f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL)
+        buttons = [
+            [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
+        ]
+        if usr_cmd != "/start":
+            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start=Crazybotz_{usr_cmd}")])
+
+        await cmd.reply(
+            f"<b> ⚠️ Dear {cmd.from_user.mention} ❗\n\n🙁 First join our channel then you will get the video, otherwise you will not get it.\n\nClick join channel button 👇</b>",
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
+        return
+    except ChatAdminRequired:
+        await cmd.reply_text("Bot needs to be an admin in the channel to check membership status.")
+        return
 
     usr_cmd = cmd.text.split("_", 1)[-1]
     if usr_cmd == "/start":
