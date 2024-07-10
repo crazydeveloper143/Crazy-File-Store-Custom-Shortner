@@ -321,10 +321,19 @@ async def clear_user_batch(bot: Client, m: Message):
 async def stream_download(bot, query):
     try:
         file_id = query.data.split('#', 1)[1]
-        lazy_file = await media_forward(bot, -1001890815456, file_id)
+        
+        # Correct usage of copy_message
+        copied_message = await bot.copy_message(
+            chat_id=-1001890815456,  # Destination chat ID
+            from_chat_id=Config.DB_CHANNEL,
+            message_id=file_id
+        )
+        
+        lazy_file = copied_message
+
         file_name = quote_plus(get_name(lazy_file))
-        lazy_stream = f"https://shivam.koyeb.app/watch/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
-        lazy_download = f"https://shivam.koyeb.app/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
+        lazy_stream = f"https://shivam.koyeb.app/watch/{str(lazy_file.message_id)}/{file_name}?hash={get_hash(lazy_file)}"
+        lazy_download = f"https://shivam.koyeb.app/{str(lazy_file.message_id)}/{file_name}?hash={get_hash(lazy_file)}"
 
         new_reply_markup = InlineKeyboardMarkup(
             [
@@ -337,12 +346,15 @@ async def stream_download(bot, query):
                 ]
             ]
         )
+        
         if query.message.reply_markup != new_reply_markup:
             await query.edit_message_reply_markup(reply_markup=new_reply_markup)
         else:
             print("The reply markup is identical, skipping edit to avoid MESSAGE_NOT_MODIFIED error.")
+    
     except pyrogram.errors.exceptions.bad_request_400.MessageNotModified:
         print("The message was not modified because the new content is the same as the old content.")
+    
     except Exception as e:
         print(f"An error occurred: {e}")
 
