@@ -92,7 +92,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 
         await bot.send_message(
             chat_id=int(Config.LOG_CHANNEL),
-            text=f"#BATCH_SAVE:\n\n[{editable.reply_to_message.from_user.first_name}](tg://user?id={editable.reply_to_message.from_user.id}) Got Batch Link!",
+            text=f"#FileSharev3Bot #BATCH_SAVE:\n\n[{editable.reply_to_message.from_user.first_name}](tg://user?id={editable.reply_to_message.from_user.id}) Got Batch Link!",
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(buttons)
         )
