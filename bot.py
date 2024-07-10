@@ -319,24 +319,28 @@ async def clear_user_batch(bot: Client, m: Message):
 
 @Bot.on_callback_query(filters.regex(r"^stream#"))
 async def stream_download(bot, query):
-    file_id = query.data.split('#', 1)[1] 
-    lazy_file = await media_forward(bot, Config.STREAM_LOGS, file_id)
-    file_name = quote_plus(get_name(lazy_file))
-    lazy_stream = f"{Config.STREAM_URL}watch/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
-    lazy_download = f"{Config.STREAM_URL}{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
-    await query.edit_message_reply_markup(
-        reply_markup=InlineKeyboardMarkup(
-            [
+    try:
+        file_id = query.data.split('#', 1)[1]
+        lazy_file = await media_forward(bot, -1001890815456, file_id)
+        file_name = quote_plus(get_name(lazy_file))
+        lazy_stream = f"https://shivam.koyeb.app/watch/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
+        lazy_download = f"https://shivam.koyeb.app/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
+        
+        await query.edit_message_reply_markup(
+            reply_markup=InlineKeyboardMarkup(
                 [
-                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_stream),
-                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴇᴍ 🖥️", url=lazy_download)
-                ],
-                [
-                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+                    [
+                        InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
+                        InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴀᴍ 🖥️", url=lazy_stream)
+                    ],
+                    [
+                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
+                    ]
                 ]
-            ]
+            )
         )
-    )
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 @Bot.on_callback_query()
