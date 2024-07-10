@@ -77,10 +77,10 @@ async def start(bot: Client, cmd: Message):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+aCTqfHmlI_1lYTZl"),
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl"),
                 ]]
             )
           )
@@ -371,8 +371,8 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("🔘 ʙᴀᴄᴋ", callback_data="gotohome"),
-                InlineKeyboardButton("ᴄʟᴏꜱᴇ 🗑️", callback_data="closeMessage")
+                InlineKeyboardButton("• ʙᴀᴄᴋ", callback_data="gotohome"),
+                InlineKeyboardButton("ᴄʟᴏꜱᴇ •", callback_data="closeMessage")
                 ]]
             )
         )
@@ -383,7 +383,7 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("🔘 ɢᴏ ʜᴏᴍᴇ 🔘", callback_data="gotohome")
+                InlineKeyboardButton("• ɢᴏ ʜᴏᴍᴇ •", callback_data="gotohome")
                 ]]
             )
         )
@@ -394,10 +394,10 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+aCTqfHmlI_1lYTZl")
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl")
                 ]]
             )
         )
@@ -444,10 +444,10 @@ async def button(bot: Client, cmd: CallbackQuery):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+aCTqfHmlI_1lYTZl"),
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl"),
                 ]]
             )
         )
@@ -473,8 +473,6 @@ async def button(bot: Client, cmd: CallbackQuery):
                 username =  cmd.from_user.mention
 
                 lazy_file = await media_forward(bot, user_id=STREAM_LOGS, file_id=file_id)
-
-
                 fileName = {quote_plus(get_name(lazy_file))}
                 lazy_stream = f"{STREAM_URL}watch/{str(lazy_file.id)}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
                 lazy_download = f"{STREAM_URL}{str(lazy_file.id)}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
