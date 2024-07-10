@@ -79,7 +79,7 @@ async def start(bot: Client, cmd: Message):
                 InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+BxEiZyFmh79iNDBl"),
+                InlineKeyboardButton("🔺 Source Code 🔺", url=" https://t.me/+aCTqfHmlI_1lYTZl"),
                 ]]
             )
           )
