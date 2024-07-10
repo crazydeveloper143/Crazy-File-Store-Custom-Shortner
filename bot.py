@@ -80,7 +80,7 @@ async def start(bot: Client, cmd: Message):
                 InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl"),
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+w9tmLfAe2vpiMWM1"),
                 ]]
             )
           )
@@ -397,7 +397,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                 InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl")
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+w9tmLfAe2vpiMWM1")
                 ]]
             )
         )
@@ -447,7 +447,7 @@ async def button(bot: Client, cmd: CallbackQuery):
                 InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
                 InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
                 ],[
-                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+aCTqfHmlI_1lYTZl"),
+                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+w9tmLfAe2vpiMWM1"),
                 ]]
             )
         )
