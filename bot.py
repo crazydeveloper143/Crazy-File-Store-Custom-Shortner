@@ -20,6 +20,7 @@ from pyrogram.errors import (
     FloodWait,
     QueryIdInvalid
 )
+from pyrogram.errors import UserNotParticipant, ChatAdminRequired, FloodWait
 from pyrogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
