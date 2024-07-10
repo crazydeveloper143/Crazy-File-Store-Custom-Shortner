@@ -3,7 +3,7 @@
 import os
 from os import getenv, environ
 
-STREAM_URL = os.environ.get("STREAM_URL", "https://crazybotz-shivam31635.koyeb.app/")
+STREAM_URL = os.environ.get("STREAM_URL", "https:/shivam.koyeb.app/")
 STREAM_LOGS = environ.get('STREAM_LOGS','-1001890815456')
 
 class Config(object):
