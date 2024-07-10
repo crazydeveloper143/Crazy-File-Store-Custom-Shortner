@@ -64,7 +64,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 
         user_id = cmd.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
+        main_url = f"https://filescrazy.blogspot.com/2024/07/crazy.html?link=Crazybotz_{str_to_b64(str(SaveMessage.id))}"
         short_url = None
 
         if user["shortener_api"]:
@@ -112,7 +112,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 
 async def save_media_in_channel(bot: Client, editable: Message, message: Message):
     try:
-        forwarded_msg = await message.forward(Config.DB_CHANNEL)
+        forwarded_msg = await message.copy(Config.DB_CHANNEL)
         file_er_id = str(forwarded_msg.id)
         await forwarded_msg.reply_text(
             f"#PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
@@ -120,7 +120,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         user_id = message.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://filescrazy.blogspot.com/2024/06/p.html?link=Crazybotz_{str_to_b64(file_er_id)}"
+        main_url = f"https://filescrazy.blogspot.com/2024/07/crazy.html?link=Crazybotz_{str_to_b64(file_er_id)}"
         short_url = None
         
         if user["shortener_api"]:
