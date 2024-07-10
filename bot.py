@@ -325,22 +325,27 @@ async def stream_download(bot, query):
         file_name = quote_plus(get_name(lazy_file))
         lazy_stream = f"https://shivam.koyeb.app/watch/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
         lazy_download = f"https://shivam.koyeb.app/{str(lazy_file.id)}/{file_name}?hash={get_hash(lazy_file)}"
-        
-        await query.edit_message_reply_markup(
-            reply_markup=InlineKeyboardMarkup(
+
+        new_reply_markup = InlineKeyboardMarkup(
+            [
                 [
-                    [
-                        InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
-                        InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴀᴍ 🖥️", url=lazy_stream)
-                    ],
-                    [
-                        InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
-                    ]
+                    InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
+                    InlineKeyboardButton("🖥️ ꜱᴛʀᴇᴀᴍ 🖥️", url=lazy_stream)
+                ],
+                [
+                    InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
                 ]
-            )
+            ]
         )
+        if query.message.reply_markup != new_reply_markup:
+            await query.edit_message_reply_markup(reply_markup=new_reply_markup)
+        else:
+            print("The reply markup is identical, skipping edit to avoid MESSAGE_NOT_MODIFIED error.")
+    except pyrogram.errors.exceptions.bad_request_400.MessageNotModified:
+        print("The message was not modified because the new content is the same as the old content.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 
 @Bot.on_callback_query()
