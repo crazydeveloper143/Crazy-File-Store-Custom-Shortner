@@ -1,4 +1,4 @@
-- 6hvskqmiye@segamail.com
+- uyxkbnzvda@segamail.com
 
 
 ## Configs:
