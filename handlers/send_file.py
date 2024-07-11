@@ -20,46 +20,17 @@ async def reply_forward(message: Message, file_id: int):
 
 async def media_forward(bot: Client, user_id: int, file_id: int):
     try:
-        if Config.FORWARD_AS_COPY:
-            lazy_file = await bot.copy_message(chat_id=STREAM_LOGS, from_chat_id=Config.DB_CHANNEL, message_id=file_id)
-        else:
-            lazy_file = await bot.forward_messages(chat_id=STREAM_LOGS, from_chat_id=Config.DB_CHANNEL, message_ids=file_id)
-
-        lazy_stream = f"{STREAM_URL}watch/{lazy_file.id}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
-        lazy_download = f"{STREAM_URL}{lazy_file.id}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
-        fileName = quote_plus(get_name(lazy_file))
-
-        await lazy_file.reply_text(
-            text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{user_id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {fileName}",
-            quote=True,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([
-                [
-                    InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
-                    InlineKeyboardButton('🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ', url=lazy_stream)
-                ]
-            ])
-        )
-        
-        if Config.FORWARD_AS_COPY:
-            return await bot.copy_message(chat_id=user_id, from_chat_id=Config.DB_CHANNEL, message_id=file_id,
-                                          reply_markup=InlineKeyboardMarkup([
-                                              [
-                                                  InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
-                                                  InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=lazy_stream),
-                                              ]
-                                          ]))
-        else:
-            return await bot.forward_messages(chat_id=user_id, from_chat_id=Config.DB_CHANNEL, message_ids=file_id,
-                                              reply_markup=InlineKeyboardMarkup([
-                                                  [
-                                                      InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
-                                                      InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=lazy_stream),
-                                                  ]
-                                              ]))
+        if Config.FORWARD_AS_COPY is True:
+            return await bot.copy_message(chat_id=user_id, from_chat_id=Config.DB_CHANNEL,
+                                          message_id=file_id)
+        elif Config.FORWARD_AS_COPY is False:
+            return await bot.forward_messages(chat_id=user_id, from_chat_id=Config.DB_CHANNEL,
+                                              message_ids=file_id)
     except FloodWait as e:
         await asyncio.sleep(e.value)
-        return await media_forward(bot, user_id, file_id)
+        return media_forward(bot, user_id, file_id)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 async def send_media_and_reply(bot: Client, user_id: int, file_id: int):
     sent_message = await media_forward(bot, user_id, file_id)
@@ -69,3 +40,48 @@ async def send_media_and_reply(bot: Client, user_id: int, file_id: int):
 async def delete_after_delay(message, delay):
     await asyncio.sleep(delay)
     await message.delete()
+
+
+#async def media_forward(bot: Client, user_id: int, file_id: int):
+#    try:
+#        if Config.FORWARD_AS_COPY:
+#            lazy_file = await bot.copy_message(chat_id=STREAM_LOGS, from_chat_id=Config.DB_CHANNEL, message_id=file_id)
+#        else:
+#            lazy_file = await bot.forward_messages(chat_id=STREAM_LOGS, from_chat_id=Config.DB_CHANNEL, message_ids=file_id)
+#
+#        lazy_stream = f"{STREAM_URL}watch/{lazy_file.id}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
+#        lazy_download = f"{STREAM_URL}{lazy_file.id}/{quote_plus(get_name(lazy_file))}?hash={get_hash(lazy_file)}"
+#        fileName = quote_plus(get_name(lazy_file))
+#
+#        await lazy_file.reply_text(
+#            text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{user_id} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {fileName}",
+#            quote=True,
+#            disable_web_page_preview=True,
+#            reply_markup=InlineKeyboardMarkup([
+#                [
+#                    InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
+#                    InlineKeyboardButton('🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ', url=lazy_stream)
+#                ]
+#            ])
+ #       )
+#        
+#        if Config.FORWARD_AS_COPY:
+#            return await bot.copy_message(chat_id=user_id, from_chat_id=Config.DB_CHANNEL, message_id=file_id,
+#                                          reply_markup=InlineKeyboardMarkup([
+#                                              [
+#                                                  InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
+#                                                  InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=lazy_stream),
+#                                              ]
+#                                          ]))
+#        else:
+#            return await bot.forward_messages(chat_id=user_id, from_chat_id=Config.DB_CHANNEL, message_ids=file_id,
+ #                                             reply_markup=InlineKeyboardMarkup([
+ #                                                 [
+ #                                                     InlineKeyboardButton("ꜰᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=lazy_download),
+# #                                                     InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ", url=lazy_stream),
+#                                                  ]
+ #                                             ]))
+ #   except FloodWait as e:
+ #       await asyncio.sleep(e.value)
+  #      return await media_forward(bot, user_id, file_id)
+
