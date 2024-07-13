@@ -1,5 +1,3 @@
-# # (c) @AbirHasan2005
-
 import os
 from os import getenv, environ
 
@@ -10,15 +8,15 @@ class Config(object):
 	API_ID = int(os.environ.get("API_ID", "29499299"))
 	API_HASH = os.environ.get("API_HASH", "d2a224d0d84bf24b6b82e887a4f1559a")
 	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6972813519:AAGlwjUL9mYdbAOSiPAmP8WC5KrrUVfvzWw")
-	BOT_USERNAME = os.environ.get("BOT_USERNAME", "FileSharev3Bot")
-	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1001799438122"))
-	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "6249148586").split()]
-	DATABASE_URL = os.environ.get('DATABASE_URI', "mongodb+srv://FileSharev3Bot:FileSharev3Bot@cluster0.cwql4cn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+	BOT_USERNAME = os.environ.get("BOT_USERNAME", "Bogura_Hub_Bot")
+	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1002223038346"))
+	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "5548923721").split()]
+	DATABASE_URL = os.environ.get('DATABASE_URI', "mongodb+srv://Bogura_Hub_Bot:Bogura_Hub_Bot@cluster0.ntspd2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 	UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "")
-	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", -1001799438122)
+	LOG_CHANNEL = os.environ.get("LOG_CHANNEL", -1002223038346)
 	BANNED_USERS = set(int(x) for x in os.environ.get("BANNED_USERS", "1234567890").split())
-	FORWARD_AS_COPY = bool(os.environ.get("FORWARD_AS_COPY", False))
-	BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
+	FORWARD_AS_COPY = os.environ.get("FORWARD_AS_COPY", "False").lower() in ("true", "1", "t", "y", "yes")
+	BROADCAST_AS_COPY = os.environ.get("BROADCAST_AS_COPY", "False").lower() in ("true", "1", "t", "y", "yes")
 	BANNED_CHAT_IDS = list(set(int(x) for x in os.environ.get("BANNED_CHAT_IDS", "").split()))
 	OTHER_USERS_CAN_SAVE_FILE = bool(os.environ.get("OTHER_USERS_CAN_SAVE_FILE", True))
 	
@@ -35,9 +33,9 @@ class Config(object):
 	ABOUT_DEV_TEXT = f"""
 <b>───[ 𝙊𝙬𝙣𝙚𝙧 𝘿𝙚𝙩𝙖𝙞𝙡𝙨 ]───
     
-• 𝙁𝙪𝙡𝙡 𝙣𝙖𝙢𝙚 : 𝙎𝙝𝙞𝙫𝙖𝙢
-• 𝙐𝙨𝙚𝙧𝙣𝙖𝙢𝙚 : @heartlesssn
-• 𝙋𝙖𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝘿𝙈 𝙡𝙞𝙣𝙠 : <a href='https://t.me/heartlesssn'>𝘾𝙧𝙖𝙯𝙮 𝘿𝙚𝙫𝙚𝙡𝙤𝙥𝙚𝙧</a></b>
+• 𝙁𝙪𝙡𝙡 𝙣𝙖𝙢𝙚 : B A Y Z I D 彡
+• 𝙐𝙨𝙚𝙧𝙣𝙖𝙢𝙚 : @xerox_bayzid
+• 𝙋𝙖𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝘿𝙈 𝙡𝙞𝙣𝙠 : <a href='https://t.me/xerox_bayzid'>B A Y Z I D 彡</a></b>
 """
 	HOME_TEXT = """
 👋 𝙃𝙚𝙮 [{}](tg://user?id={})\n\n𝙏𝙝𝙞𝙨 𝙞𝙨 𝙖 𝙋𝙚𝙧𝙢𝙖𝙣𝙚𝙣𝙩 𝙁𝙞𝙡𝙚𝙎𝙩𝙤𝙧𝙚 𝘽𝙤𝙩
