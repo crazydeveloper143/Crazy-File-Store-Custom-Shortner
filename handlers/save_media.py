@@ -112,7 +112,7 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 
 async def save_media_in_channel(bot: Client, editable: Message, message: Message):
     try:
-        forwarded_msg = await message.forward(Config.DB_CHANNEL)
+        forwarded_msg = await message.copy(Config.DB_CHANNEL)
         file_er_id = str(forwarded_msg.id)
         await forwarded_msg.reply_text(
             f"#PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
