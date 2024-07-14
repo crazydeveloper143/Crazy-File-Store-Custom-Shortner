@@ -1,5 +1,4 @@
--  4af3txhglu@segamail.com
-
+-  y0a3wdpfsb@segamail.com render
 
 ## Configs:
 - `API_ID` - Get this from [@TeleORG_Bot](https://t.me/TeleORG_Bot)
