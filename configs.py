@@ -7,7 +7,7 @@ STREAM_LOGS = environ.get('STREAM_LOGS','-1001890815456')
 class Config(object):
 	API_ID = int(os.environ.get("API_ID", "29499299"))
 	API_HASH = os.environ.get("API_HASH", "d2a224d0d84bf24b6b82e887a4f1559a")
-	BOT_TOKEN = os.environ.get("BOT_TOKEN", "6972813519:AAGlwjUL9mYdbAOSiPAmP8WC5KrrUVfvzWw")
+	BOT_TOKEN = os.environ.get("BOT_TOKEN", "7288624804:AAGrS61OR8Rlxz8iYEQ9ASLWLLU-pGi8YPs")
 	BOT_USERNAME = os.environ.get("BOT_USERNAME", "Bogura_Hub_Bot")
 	DB_CHANNEL = int(os.environ.get("DB_CHANNEL", "-1002223038346"))
 	BOT_OWNER = [int(owner) for owner in os.environ.get("BOT_OWNER", "5548923721").split()]
