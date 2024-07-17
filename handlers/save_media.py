@@ -130,7 +130,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
 
         forwarded_msg = await message.copy(Config.DB_CHANNEL)
         file_er_id = str(forwarded_msg.id)
-        
+        file_er_id = str(file_id)
         await forwarded_msg.reply_text(
             f"#FileSharev3Bot #PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
             disable_web_page_preview=True
