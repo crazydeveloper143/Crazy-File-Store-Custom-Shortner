@@ -1,4 +1,4 @@
-
+from motor.motor_asyncio import AsyncIOMotorClient
 
 import asyncio
 from configs import Config
