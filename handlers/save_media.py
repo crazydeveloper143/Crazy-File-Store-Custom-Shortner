@@ -150,7 +150,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
         caption = user.get("caption", message.caption or "")
 
         file_info = {
-            "file_id": forwarded_msg.message_id,
+            "file_er_id": forwarded_msg.id,
             "file_name": file_name,
             "caption": caption,
             "user_id": user_id
