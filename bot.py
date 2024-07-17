@@ -184,7 +184,7 @@ async def shortener_api_handler(bot, m: Message):
     await update_user_info(user_id, {"base_site": base_site, "shortener_api": shortener_api})
     await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ᴡᴇʙꜱɪᴛᴇ & ᴀᴘɪᴋᴇʏ ᴡᴀꜱ ᴀᴅᴅᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ. ✅**")
 
-@Client.on_message(filters.private & filters.command('set_caption'))
+@Bot.on_message(filters.private & filters.command('set_caption'))
 async def add_caption(client, message):
     user_id = message.from_user.id
     user = await get_user(user_id)
