@@ -12,6 +12,21 @@ from pyrogram.errors import FloodWait
 from handlers.helpers import get_short_link, str_to_b64
 from handlers.users_api import get_user
 
+mongo_client = AsyncIOMotorClient("mongodb+srv://Bogura_Hub_Bot:Bogura_Hub_Bot@cluster0.ntspd2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+db = mongo_client["mydatabase"]
+files_collection = db["files"]
+
+async def get_file_caption(file_id):
+    try:
+        file_info = await files_collection.find_one({"file_id": file_id})
+        if file_info and "caption" in file_info:
+            return file_info["caption"]
+        else:
+            return ""
+    except Exception as e:
+        print(f"Error in get_file_caption: {e}")
+        return ""
+
 def humanbytes(size):
     if not size:
         return ""
@@ -112,44 +127,51 @@ async def save_batch_media_in_channel(bot: Client, editable: Message, message_id
 
 async def save_media_in_channel(bot: Client, editable: Message, message: Message):
     try:
+
         forwarded_msg = await message.copy(Config.DB_CHANNEL)
-        file_er_id = str(forwarded_msg.id)
+        file_id = str(forwarded_msg.message_id)
+        
         await forwarded_msg.reply_text(
             f"#FileSharev3Bot #PRIVATE_FILE:\n\n[{message.from_user.first_name}](tg://user?id={message.from_user.id}) Got File Link!",
-            disable_web_page_preview=True)
+            disable_web_page_preview=True
+        )
 
         user_id = message.from_user.id
         user = await get_user(user_id)
-        main_url = f"https://filescrazy.blogspot.com/2024/07/crazy.html?link=Crazybotz_{str_to_b64(file_er_id)}"
+
+        main_url = f"https://filescrazy.blogspot.com/2024/07/crazy.html?link=Crazybotz_{str_to_b64(file_id)}"
         short_url = None
-        
         if user["shortener_api"]:
             short_url = await get_short_link(user, main_url)
-        
-        # get media type
         media_type = message.document or message.video or message.audio
-        # get file name
-        file_name = media_type.file_name
-        # get file size 
-        f_size = humanbytes(media_type.file_size)
-        # get caption (if any)
-        caption = message.caption or ""
+        file_name = media_type.file_name if media_type else "Untitled File"
+        file_size = humanbytes(media_type.file_size) if media_type else "Unknown Size"
 
+        caption = user.get("caption", message.caption or "")
+
+        file_info = {
+            "file_id": forwarded_msg.message_id,
+            "file_name": file_name,
+            "caption": caption,
+            "user_id": user_id
+        }
+        await files_collection.insert_one(file_info)
         message_text = (
             "\n**Your File Uploaded Successfully **\n\n"
-            f"**🔐 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚 : <code>{file_name}</code>\n\n🔺 𝙛𝙞𝙡𝙚 𝙎𝙞𝙯𝙚 : <code>{f_size}</code> \n\n⚜️ 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 𝙇𝙞𝙣𝙠 : <code>{main_url}</code>\n"
+            f"**🔐 File Name : <code>{file_name}</code>\n\n🔺 File Size : <code>{file_size}</code> \n\n⚜️ Your File Link : <code>{main_url}</code>\n"
         )
 
         buttons = [
-            [InlineKeyboardButton("ᴍᴀɪɴ ʟɪɴᴋ", url=main_url)]
+            [InlineKeyboardButton("Main Link", url=main_url)]
         ]
 
         if short_url:
-            message_text += f"\n\n♻️ 𝙨𝙝𝙤𝙧𝙩𝙣ᴇᴅ 𝙡ɪɴᴋ : <code>{short_url}</code>\n"
-            buttons.append([InlineKeyboardButton("ꜱʜᴏʀᴛɴᴇᴅ ʟɪɴᴋ 🔁", url=short_url)])
+            message_text += f"\n\n♻️ Shortened Link : <code>{short_url}</code>\n"
+            buttons.append([InlineKeyboardButton("Shortened Link 🔁", url=short_url)])
 
-        message_text += "\n**ꜱʜᴀʀᴇ ʟɪɴᴋ ᴀɴᴅ ᴇᴀʀɴ ...💡**"
+        message_text += "\n**Share the link and earn...💡**"
 
+        # Edit the editable message with the updated message text and buttons
         await editable.edit(
             message_text,
             reply_markup=InlineKeyboardMarkup(buttons),
@@ -157,6 +179,7 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
         )
 
     except FloodWait as sl:
+        
         if sl.value > 45:
             print(f"Sleep of {sl.value}s caused by FloodWait ...")
             await asyncio.sleep(sl.value)
@@ -172,7 +195,9 @@ async def save_media_in_channel(bot: Client, editable: Message, message: Message
                 )
             )
         await save_media_in_channel(bot, editable, message)
+
     except Exception as err:
+        
         await editable.edit(f"Something Went Wrong!\n\n**Error:** `{err}`")
         await bot.send_message(
             chat_id=int(Config.LOG_CHANNEL),
