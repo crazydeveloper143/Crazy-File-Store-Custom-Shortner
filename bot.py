@@ -204,6 +204,13 @@ async def sts(_, m: Message):
         quote=True
     )
 
+@Bot.on_message(filters.command('reset') & filters.private)
+async def reset(bot, m: Message):
+    user_id = m.from_user.id
+    user = await get_user(user_id)
+    await update_user_info(user_id, {"base_site": "", "shortener_api": ""})
+    await m.reply("**ʏᴏᴜʀ ꜱʜᴏʀᴛᴇɴᴇʀ ꜱᴇᴛᴛɪɴɢꜱ ʜᴀᴠᴇ ʙᴇᴇɴ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜰᴜʟʟʏ. ✅**")
+    
 @Bot.on_message(filters.private & filters.command("ban_user") & filters.user(Config.BOT_OWNER))
 async def ban(c: Client, m: Message):
     
