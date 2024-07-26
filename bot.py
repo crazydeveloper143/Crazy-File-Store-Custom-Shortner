@@ -84,7 +84,7 @@ async def start(bot: Client, cmd: Message):
     usr_cmd = cmd.text.split("_", 1)[-1] if "_" in cmd.text else "/start"
 
     try:
-        user = await is_subscribed(bot, cmd):
+        user = await is_subscribed(bot, cmd)
     except UserNotParticipant:
         f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL, creates_join_request=True)
         buttons = [
