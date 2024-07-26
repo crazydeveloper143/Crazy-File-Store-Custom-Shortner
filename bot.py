@@ -20,6 +20,7 @@ from pyrogram.errors import (
     FloodWait,
     QueryIdInvalid
 )
+from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import (
     InlineKeyboardMarkup,
@@ -58,40 +59,76 @@ Bot = Client(
 async def _(bot: Client, cmd: Message):
     await handle_user_status(bot, cmd)
 
+
+async def is_subscribed(bot, cmd):
+    if await db.find_join_req(cmd.from_user.id):
+        return True
+    try:
+        user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if user.status != enums.ChatMemberStatus.BANNED:
+            return True
+
+    return False
+    
 @Bot.on_message(filters.command("start") & filters.private)
 async def start(bot: Client, cmd: Message):
-
     if cmd.from_user.id in Config.BANNED_USERS:
         await cmd.reply_text("Sorry, You are banned.")
         return
-    if Config.UPDATES_CHANNEL is not None:
-        back = await handle_force_sub(bot, cmd)
-        if back == 400:
-            return
 
-    usr_cmd = cmd.text.split("_", 1)[-1]
+    usr_cmd = cmd.text.split("_", 1)[-1] if "_" in cmd.text else "/start"
+
+    try:
+        user = await is_subscribed(bot, cmd):
+    except UserNotParticipant:
+        f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL, creates_join_request=True)
+        buttons = [
+            [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
+        ]
+        if usr_cmd != "/start":
+            buttons.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://telegram.me/{Config.BOT_USERNAME}?start=Crazybotz_{usr_cmd}")])
+
+        await cmd.reply(
+            f"<b> ⚠️ Dear {cmd.from_user.mention} ❗\n\n🙁 First join our channel then you will get the video, otherwise you will not get it.\n\nClick join channel button 👇</b>",
+            reply_markup=InlineKeyboardMarkup(buttons)
+        )
+        return
+    except ChatAdminRequired:
+        await cmd.reply_text("Bot needs to be an admin in the channel to check membership status.")
+        return
+
     if usr_cmd == "/start":
         await add_user_to_database(bot, cmd)
         await cmd.reply_text(
             Config.HOME_TEXT.format(cmd.from_user.first_name, cmd.from_user.id),
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[
-                InlineKeyboardButton("• ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
-                InlineKeyboardButton("ᴀʙᴏᴜᴛ •", callback_data="aboutbot")
-                ],[
-                InlineKeyboardButton("• ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ •", url="https://t.me/+w9tmLfAe2vpiMWM1"),
-                ]]
+                [
+                    [
+                        InlineKeyboardButton("👨‍💻 ᴏᴡɴᴇʀ", callback_data="aboutdevs"),
+                        InlineKeyboardButton("ᴀʙᴏᴜᴛ 💠", callback_data="aboutbot")
+                    ],
+                    [
+                        InlineKeyboardButton("🔺 ᴊᴏɪɴ ᴍʏ ᴄʜᴀɴɴᴇʟ 🔺", url="https://t.me/+aCTqfHmlI_1lYTZl"),
+                    ]
+                ]
             )
-          )
+        )
     else:
         try:
             try:
                 file_id = int(b64_to_str(usr_cmd).split("_")[-1])
             except (Error, UnicodeDecodeError):
                 file_id = int(usr_cmd.split("_")[-1])
+
             GetMessage = await bot.get_messages(chat_id=Config.DB_CHANNEL, message_ids=file_id)
             message_ids = []
+
             if GetMessage.text:
                 message_ids = GetMessage.text.split(" ")
                 _response_msg = await cmd.reply_text(
@@ -101,8 +138,10 @@ async def start(bot: Client, cmd: Message):
                 )
             else:
                 message_ids.append(int(GetMessage.id))
+
             for i in range(len(message_ids)):
                 await send_media_and_reply(bot, user_id=cmd.from_user.id, file_id=int(message_ids[i]))
+
         except Exception as err:
             await cmd.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
