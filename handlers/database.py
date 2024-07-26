@@ -1,5 +1,3 @@
-# (c) @AbirHasan2005
-
 import datetime
 import motor.motor_asyncio
 from configs import Config
@@ -11,6 +9,7 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
+        self.req = self.db.requests
 
     def new_user(self, id):
         return dict(
@@ -35,6 +34,15 @@ class Database:
     async def total_users_count(self):
         count = await self.col.count_documents({})
         return count
+
+    async def find_join_req(self, id):
+        return bool(await self.req.find_one({'id': id}))
+
+    async def add_join_req(self, id):
+        await self.req.insert_one({'id': id})
+
+    async def del_join_req(self):
+        await self.req.drop()
 
     async def get_all_users(self):
         all_users = self.col.find({})
