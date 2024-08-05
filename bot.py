@@ -4,7 +4,7 @@ import os
 import asyncio
 import traceback
 from configs import STREAM_URL, STREAM_LOGS
-
+from pyrogram.types import ChatJoinRequest
 from util.file_properties import get_name, get_hash, get_media_file_size
 from urllib.parse import quote_plus
 from binascii import (
