@@ -68,6 +68,8 @@ async def start(bot: Client, cmd: Message):
 
     try:
         user = await bot.get_chat_member(Config.UPDATES_CHANNEL, cmd.from_user.id)
+        if await db.find_join_req(cmd.from_user.id):
+            raise UserNotParticipant
     except UserNotParticipant:
         f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL)
         buttons = [
