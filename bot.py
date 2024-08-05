@@ -71,7 +71,7 @@ async def start(bot: Client, cmd: Message):
         if await db.find_join_req(cmd.from_user.id):
             raise UserNotParticipant
     except UserNotParticipant:
-        f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL)
+        f_link = await bot.export_chat_invite_link(Config.UPDATES_CHANNEL, creates_join_request=True)
         buttons = [
             [InlineKeyboardButton("⛔ Join Channel ⛔", url=f_link)]
         ]
@@ -349,7 +349,6 @@ async def _banned_users(_, m: Message):
 async def clear_user_batch(bot: Client, m: Message):
     MediaList[f"{str(m.from_user.id)}"] = []
     await m.reply_text("Cleared your batch files successfully!")
-
 
 
 @Bot.on_chat_join_request(filters.chat(Config.UPDATES_CHANNEL))
