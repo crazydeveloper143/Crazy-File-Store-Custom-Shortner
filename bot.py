@@ -1,5 +1,5 @@
 # (c) 
-
+import logging
 import os
 import asyncio
 import traceback
@@ -43,6 +43,9 @@ from handlers.save_media import (
     save_batch_media_in_channel
 )
 from handlers.users_api import get_user, update_user_info
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 MediaList = {}
 
@@ -353,14 +356,16 @@ async def clear_user_batch(bot: Client, m: Message):
 
 @Bot.on_chat_join_request(filters.chat(Config.UPDATES_CHANNEL))
 async def join_reqs(client, message: ChatJoinRequest):
-    if not await db.find_join_req(message.from_user.id):
-        await db.add_join_req(message.from_user.id)
+    user_id = message.from_user.id
+    if not await db.find_join_req(user_id):
+        await db.add_join_req(user_id)
+        logger.info(f"User {message.from_user.first_name} ({user_id}) has requested to join the channel.")
 
 @Bot.on_message(filters.command("delreq") & filters.private & filters.user(Config.BOT_OWNER))
 async def del_requests(client, message):
     await db.del_join_req()
     await message.reply("<b>⚙ Successfully deleted channel join requests from users</b>")
-
+    logger.info("All join requests have been successfully deleted.")
 
 @Bot.on_callback_query()
 async def button(bot: Client, cmd: CallbackQuery):
