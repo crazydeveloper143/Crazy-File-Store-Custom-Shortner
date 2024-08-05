@@ -351,6 +351,18 @@ async def clear_user_batch(bot: Client, m: Message):
     await m.reply_text("Cleared your batch files successfully!")
 
 
+
+@Bot.on_chat_join_request(filters.chat(Config.UPDATES_CHANNEL))
+async def join_reqs(client, message: ChatJoinRequest):
+    if not await db.find_join_req(message.from_user.id):
+        await db.add_join_req(message.from_user.id)
+
+@Bot.on_message(filters.command("delreq") & filters.private & filters.user(Config.BOT_OWNER))
+async def del_requests(client, message):
+    await db.del_join_req()
+    await message.reply("<b>⚙ Successfully deleted channel join requests from users</b>")
+
+
 @Bot.on_callback_query()
 async def button(bot: Client, cmd: CallbackQuery):
 
