@@ -121,52 +121,19 @@ async def main(bot: Client, message: Message):
         if Config.OTHER_USERS_CAN_SAVE_FILE is False:
             return
 
-        await message.reply_text(
-            text="**Choose an option To Upload Your Files**",
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("ᴜᴘʟᴏᴀᴅ ᴛᴏ ʙᴀᴛᴄʜ", callback_data="addToBatchTrue")],
-                [InlineKeyboardButton("ᴜᴘʟᴏᴀᴅ ᴛᴏ ꜱɪɴɢʟᴇ ꜰɪʟᴇ", callback_data="addToBatchFalse")]
-            ]),
-            quote=True,
+        keyboard = InlineKeyboardMarkup([
+            [InlineKeyboardButton("Start New Bot", url="https://t.me/ProStorezBot")]
+        ])
+        photo_url = "https://graph.org/file/c9cdd4654260eeeca6844.jpg"
+
+        await message.reply_photo(
+            photo=photo_url,
+            caption="**इस बॉट में कॉपीराइट आ गया है इसकी जगह दूसरा बॉट स्टार्ट किया गया है अब उसका उपयोग करें आपकी जो पुरानी फाइलें स्थायी लिंक के साथ बनी हैं वो डिलीट नहीं होंगी |\n\nThis bot has been copyrighted, another bot has been started in its place, now use it. Your old files created with permanent links will not be deleted.\n\nNew Bot Link :\n\nt.me/ProStorezBot\nt.me/ProStorezBot**",
+            reply_markup=keyboard,
             disable_web_page_preview=True
         )
-    elif message.chat.type == enums.ChatType.CHANNEL:
-        if (message.chat.id == int(Config.LOG_CHANNEL)) or (message.chat.id == int(Config.UPDATES_CHANNEL)) or message.forward_from_chat or message.forward_from:
-            return
-        elif int(message.chat.id) in Config.BANNED_CHAT_IDS:
-            await bot.leave_chat(message.chat.id)
-            return
-        else:
-            pass
 
-        try:
-            forwarded_msg = await message.forword(Config.DB_CHANNEL)
-            file_er_id = str(forwarded_msg.id)
-            share_link = f"https://t.me/{Config.BOT_USERNAME}?start=AbirHasan2005_{str_to_b64(file_er_id)}"
-            CH_edit = await bot.edit_message_reply_markup(message.chat.id, message.id,
-                                                          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                              "Get Sharable Link", url=share_link)]]))
-            if message.chat.username:
-                await forwarded_msg.reply_text(
-                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/{message.chat.username}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
-            else:
-                private_ch = str(message.chat.id)[4:]
-                await forwarded_msg.reply_text(
-                    f"#CHANNEL_BUTTON:\n\n[{message.chat.title}](https://t.me/c/{private_ch}/{CH_edit.id}) Channel's Broadcasted File's Button Added!")
-        except FloodWait as sl:
-            await asyncio.sleep(sl.value)
-            await bot.send_message(
-                chat_id=int(Config.LOG_CHANNEL),
-                text=f"#FloodWait:\nGot FloodWait of `{str(sl.value)}s` from `{str(message.chat.id)}` !!",
-                disable_web_page_preview=True
-            )
-        except Exception as err:
-            await bot.leave_chat(message.chat.id)
-            await bot.send_message(
-                chat_id=int(Config.LOG_CHANNEL),
-                text=f"#ERROR_TRACEBACK:\nGot Error from `{str(message.chat.id)}` !!\n\n**Traceback:** `{err}`",
-                disable_web_page_preview=True
-            )
+
 @Bot.on_message(filters.command('set_shortner') & filters.private)
 async def shortener_api_handler(bot, m: Message):
     user_id = m.from_user.id
