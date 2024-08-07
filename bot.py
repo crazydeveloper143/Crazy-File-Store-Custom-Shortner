@@ -129,8 +129,7 @@ async def main(bot: Client, message: Message):
         await message.reply_photo(
             photo=photo_url,
             caption="**इस बॉट में कॉपीराइट आ गया है इसकी जगह दूसरा बॉट स्टार्ट किया गया है अब उसका उपयोग करें आपकी जो पुरानी फाइलें स्थायी लिंक के साथ बनी हैं वो डिलीट नहीं होंगी |\n\nThis bot has been copyrighted, another bot has been started in its place, now use it. Your old files created with permanent links will not be deleted.\n\nNew Bot Link :\n\nt.me/ProStorezBot\nt.me/ProStorezBot**",
-            reply_markup=keyboard,
-            disable_web_page_preview=True
+            reply_markup=keyboard
         )
 
 
