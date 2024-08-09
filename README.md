@@ -1,5 +1,6 @@
-- veksltwamg@segamail.com
+- zxp1kwh6la@segamail.com
 
+- mfilestorebot
 
 ## Configs:
 - `API_ID` - Get this from [@TeleORG_Bot](https://t.me/TeleORG_Bot)
